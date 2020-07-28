@@ -1,0 +1,22 @@
+test:
+  name: Coffee Bean Supply Chain
+  description: Caliper benchmark to measure performance of a Hyperledger Fabric network used to track the coffee bean supply chain.
+  workers:
+    type: local
+    number: 2
+  rounds:
+    - label: Create Batch
+      txNumber: 100
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 25
+      arguments:
+        dummy: true
+      callback: ./createBatch.js
+monitor:
+  type:
+    - docker
+  docker:
+    containers:
+      - all

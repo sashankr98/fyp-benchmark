@@ -1,0 +1,274 @@
+name: Farbic
+version: "1.0"
+
+caliper:
+  blockchain: fabric
+  # command:
+  #   start: docker-compose -f ../network/docker-compose.yaml up -d;sleep 3s
+  #   end: docker-compose -f ../network/docker-compose.yaml down;docker rm $(docker ps -aq);
+
+info:
+  Version: 1.4.7
+  Size: 5 orgs with 2 peers
+  Orderer: etcdraft
+  Distribution: Single Host
+  StateDB: CouchDB
+
+# mutual-tls: true
+# wallet: ./wallet/
+
+peers:
+  peer0.farminspector.supplychain.com:
+    url: grpcs://localhost:7051
+    grpcOptions:
+      ssl-target-name-override: peer0.farminspector.supplychain.com
+      grpc.http2.keepalive_time: 15
+
+    tlsCACerts:
+      path: ./crypto-config/peerOrganizations/farminspector.supplychain.com/msp/tlscacerts/tlsca.farminspector.supplychain.com-cert.pem
+
+  peer1.farminspector.supplychain.com:
+    url: grpcs://localhost:8051
+    grpcOptions:
+      ssl-target-name-override: peer1.farminspector.supplychain.com
+      grpc.http2.keepalive_time: 15
+
+    tlsCACerts:
+      path: ./crypto-config/peerOrganizations/farminspector.supplychain.com/msp/tlscacerts/tlsca.farminspector.supplychain.com-cert.pem
+
+  peer0.harvester.supplychain.com:
+    url: grpcs://localhost:9051
+    grpcOptions:
+      ssl-target-name-override: peer0.harvester.supplychain.com
+      grpc.http2.keepalive_time: 15
+
+    tlsCACerts:
+      path: ./crypto-config/peerOrganizations/harvester.supplychain.com/msp/tlscacerts/tlsca.harvester.supplychain.com-cert.pem
+
+  peer1.harvester.supplychain.com:
+    url: grpcs://localhost:10051
+    grpcOptions:
+      ssl-target-name-override: peer1.harvester.supplychain.com
+      grpc.http2.keepalive_time: 15
+
+    tlsCACerts:
+      path: ./crypto-config/peerOrganizations/harvester.supplychain.com/msp/tlscacerts/tlsca.harvester.supplychain.com-cert.pem
+
+  peer0.exporter.supplychain.com:
+    url: grpcs://localhost:11051
+    grpcOptions:
+      ssl-target-name-override: peer0.exporter.supplychain.com
+      grpc.http2.keepalive_time: 15
+
+    tlsCACerts:
+      path: ./crypto-config/peerOrganizations/exporter.supplychain.com/msp/tlscacerts/tlsca.exporter.supplychain.com-cert.pem
+
+  peer1.exporter.supplychain.com:
+    url: grpcs://localhost:12051
+    grpcOptions:
+      ssl-target-name-override: peer1.exporter.supplychain.com
+      grpc.http2.keepalive_time: 15
+
+    tlsCACerts:
+      path: ./crypto-config/peerOrganizations/exporter.supplychain.com/msp/tlscacerts/tlsca.exporter.supplychain.com-cert.pem
+
+  peer0.importer.supplychain.com:
+    url: grpcs://localhost:13051
+    grpcOptions:
+      ssl-target-name-override: peer0.importer.supplychain.com
+      grpc.http2.keepalive_time: 15
+
+    tlsCACerts:
+      path: ./crypto-config/peerOrganizations/importer.supplychain.com/msp/tlscacerts/tlsca.importer.supplychain.com-cert.pem
+
+  peer1.importer.supplychain.com:
+    url: grpcs://localhost:14051
+    grpcOptions:
+      ssl-target-name-override: peer1.importer.supplychain.com
+      grpc.http2.keepalive_time: 15
+
+    tlsCACerts:
+      path: ./crypto-config/peerOrganizations/importer.supplychain.com/msp/tlscacerts/tlsca.importer.supplychain.com-cert.pem
+
+  peer0.processor.supplychain.com:
+    url: grpcs://localhost:15051
+    grpcOptions:
+      ssl-target-name-override: peer0.processor.supplychain.com
+      grpc.http2.keepalive_time: 15
+
+    tlsCACerts:
+      path: ./crypto-config/peerOrganizations/processor.supplychain.com/msp/tlscacerts/tlsca.processor.supplychain.com-cert.pem
+
+  peer1.processor.supplychain.com:
+    url: grpcs://localhost:16051
+    grpcOptions:
+      ssl-target-name-override: peer1.processor.supplychain.com
+      grpc.http2.keepalive_time: 15
+
+    tlsCACerts:
+      path: ./crypto-config/peerOrganizations/processor.supplychain.com/msp/tlscacerts/tlsca.processor.supplychain.com-cert.pem
+
+orderers:
+  orderer1.supplychain.com:
+    url: grpcs://localhost:7050
+    grpcOptions:
+      ssl-target-name-override: orderer1.supplychain.com
+      grpc-max-send-message-length: 10000
+
+    tlsCACerts:
+      path: ./crypto-config/ordererOrganizations/supplychain.com/msp/tlscacerts/tlsca.supplychain.com-cert.pem
+
+  orderer2.supplychain.com:
+    url: grpcs://localhost:8050
+    grpcOptions:
+      ssl-target-name-override: orderer2.supplychain.com
+      grpc-max-send-message-length: 10000
+
+    tlsCACerts:
+      path: ./crypto-config/ordererOrganizations/supplychain.com/msp/tlscacerts/tlsca.supplychain.com-cert.pem
+
+  orderer3.supplychain.com:
+    url: grpcs://localhost:9050
+    grpcOptions:
+      ssl-target-name-override: orderer3.supplychain.com
+      grpc-max-send-message-length: 10000
+
+    tlsCACerts:
+      path: ./crypto-config/ordererOrganizations/supplychain.com/msp/tlscacerts/tlsca.supplychain.com-cert.pem
+
+clients:
+  Admin@farminspector.supplychain.com:
+    client:
+      organization: FarmInspector
+      credentialStore:
+        path: /tmp/supplychain-store
+        cryptoStore:
+          path: /tmp/supplychain-msp
+      clientPrivateKey:
+        path: ./crypto-config/peerOrganizations/farminspector.supplychain.com/users/Admin@farminspector.supplychain.com/msp/keystore/bf6fe7053bf5c809a3abe551376542acf1f08d47caac5b9678fb5f3ba827fd87_sk
+      clientSignedCert:
+        path: ./crypto-config/peerOrganizations/farminspector.supplychain.com/users/Admin@farminspector.supplychain.com/msp/signcerts/Admin@farminspector.supplychain.com-cert.pem
+
+  Admin@harvester.supplychain.com:
+    client:
+      organization: Harvester
+      credentialStore:
+        path: /tmp/supplychain-store
+        cryptoStore:
+          path: /tmp/supplychain-msp
+      clientPrivateKey:
+        path: ./crypto-config/peerOrganizations/harvester.supplychain.com/users/Admin@harvester.supplychain.com/msp/keystore/9bd38ebf9bfbfcc20d221e4b5a4d2a541a6eaac6ae85e6f443a1ca475785380b_sk
+      clientSignedCert:
+        path: ./crypto-config/peerOrganizations/harvester.supplychain.com/users/Admin@harvester.supplychain.com/msp/signcerts/Admin@harvester.supplychain.com-cert.pem
+
+  Admin@exporter.supplychain.com:
+    client:
+      organization: Exporter
+      credentialStore:
+        path: /tmp/supplychain-store
+        cryptoStore:
+          path: /tmp/supplychain-msp
+      clientPrivateKey:
+        path: ./crypto-config/peerOrganizations/exporter.supplychain.com/users/Admin@exporter.supplychain.com/msp/keystore/f519cc5716e1dbd91c7e5dd0dc259f144d7c3608c54fa838a4445ed9238b4a06_sk
+      clientSignedCert:
+        path: ./crypto-config/peerOrganizations/exporter.supplychain.com/users/Admin@exporter.supplychain.com/msp/signcerts/Admin@exporter.supplychain.com-cert.pem
+
+  Admin@importer.supplychain.com:
+    client:
+      organization: Importer
+      credentialStore:
+        path: /tmp/supplychain-store
+        cryptoStore:
+          path: /tmp/supplychain-msp
+      clientPrivateKey:
+        path: ./crypto-config/peerOrganizations/importer.supplychain.com/users/Admin@importer.supplychain.com/msp/keystore/327ee3ad0ae92aacc455b32bec36aed043e80666790b7f5b8566c447c7fa6b71_sk
+      clientSignedCert:
+        path: ./crypto-config/peerOrganizations/importer.supplychain.com/users/Admin@importer.supplychain.com/msp/signcerts/Admin@importer.supplychain.com-cert.pem
+
+  Admin@processor.supplychain.com:
+    client:
+      organization: Processor
+      credentialStore:
+        path: /tmp/supplychain-store
+        cryptoStore:
+          path: /tmp/supplychain-msp
+      clientPrivateKey:
+        path: ./crypto-config/peerOrganizations/processor.supplychain.com/users/Admin@processor.supplychain.com/msp/keystore/8c84c6d3fc3c9b36e24f35eb530ebf727a9f766cdbf24a5ac2842aaccf2f4100_sk
+      clientSignedCert:
+        path: ./crypto-config/peerOrganizations/processor.supplychain.com/users/Admin@processor.supplychain.com/msp/signcerts/Admin@processor.supplychain.com-cert.pem
+organizations:
+  FarmInspector:
+    mspid: FarmInspectorMSP
+    # cryptopath: peerOrganizations/farminspector.supplychain.com/users/Admin@farminspector.supplychain.com/msp
+    peers:
+      - peer0.farminspector.supplychain.com
+      - peer1.farminspector.supplychain.com
+    adminPrivateKey:
+      path: ./crypto-config/peerOrganizations/farminspector.supplychain.com/users/Admin@farminspector.supplychain.com/msp/keystore/bf6fe7053bf5c809a3abe551376542acf1f08d47caac5b9678fb5f3ba827fd87_sk
+    signedCert:
+      path: ./crypto-config/peerOrganizations/farminspector.supplychain.com/users/Admin@farminspector.supplychain.com/msp/signcerts/Admin@farminspector.supplychain.com-cert.pem
+
+  Harvester:
+    mspid: HarvesterMSP
+    # cryptopath: peerOrganizations/harvester.supplychain.com/users/Admin@harvester.supplychain.com/msp
+    peers:
+      - peer0.harvester.supplychain.com
+      - peer1.harvester.supplychain.com
+    adminPrivateKey:
+      path: ./crypto-config/peerOrganizations/harvester.supplychain.com/users/Admin@harvester.supplychain.com/msp/keystore/9bd38ebf9bfbfcc20d221e4b5a4d2a541a6eaac6ae85e6f443a1ca475785380b_sk
+    signedCert:
+      path: ./crypto-config/peerOrganizations/harvester.supplychain.com/users/Admin@harvester.supplychain.com/msp/signcerts/Admin@harvester.supplychain.com-cert.pem
+
+  Exporter:
+    mspid: ExporterMSP
+    # cryptopath: peerOrganizations/exporter.supplychain.com/users/Admin@exporter.supplychain.com/msp
+    peers:
+      - peer0.exporter.supplychain.com
+      - peer1.exporter.supplychain.com
+    adminPrivateKey:
+      path: ./crypto-config/peerOrganizations/exporter.supplychain.com/users/Admin@exporter.supplychain.com/msp/keystore/f519cc5716e1dbd91c7e5dd0dc259f144d7c3608c54fa838a4445ed9238b4a06_sk
+    signedCert:
+      path: ./crypto-config/peerOrganizations/exporter.supplychain.com/users/Admin@exporter.supplychain.com/msp/signcerts/Admin@exporter.supplychain.com-cert.pem
+
+  Importer:
+    mspid: ImporterMSP
+    # cryptopath: peerOrganizations/importer.supplychain.com/users/Admin@importer.supplychain.com/msp
+    peers:
+      - peer0.importer.supplychain.com
+      - peer1.importer.supplychain.com
+    adminPrivateKey:
+      path: ./crypto-config/peerOrganizations/importer.supplychain.com/users/Admin@importer.supplychain.com/msp/keystore/327ee3ad0ae92aacc455b32bec36aed043e80666790b7f5b8566c447c7fa6b71_sk
+    signedCert:
+      path: ./crypto-config/peerOrganizations/importer.supplychain.com/users/Admin@importer.supplychain.com/msp/signcerts/Admin@importer.supplychain.com-cert.pem
+
+  Processor:
+    mspid: ProcessorMSP
+    # cryptopath: peerOrganizations/processor.supplychain.com/users/Admin@processor.supplychain.com/msp
+    peers:
+      - peer0.processor.supplychain.com
+      - peer1.processor.supplychain.com
+    adminPrivateKey:
+      path: ./crypto-config/peerOrganizations/processor.supplychain.com/users/Admin@processor.supplychain.com/msp/keystore/8c84c6d3fc3c9b36e24f35eb530ebf727a9f766cdbf24a5ac2842aaccf2f4100_sk
+    signedCert:
+      path: ./crypto-config/peerOrganizations/processor.supplychain.com/users/Admin@processor.supplychain.com/msp/signcerts/Admin@processor.supplychain.com-cert.pem
+
+channels:
+  scchannel:
+    created: true
+    # configBinary: /home/sashank/Documents/Projects/FYP/coffee-supply-chain/network/channel-artifacts/channel.tx
+    orderers:
+      - orderer1.supplychain.com
+      - orderer2.supplychain.com
+      - orderer3.supplychain.com
+
+    peers:
+      peer0.farminspector.supplychain.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+
+    chaincodes:
+      - id: supplycc
+        version: "0"
+        # language: golang

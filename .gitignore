@@ -1,0 +1,5 @@
+node_modules
+coffeesupplychain/crypto-config
+coffeesupplychain/caliper.log
+package-lock.json
+coffeesupplychain/createBatchReport.pdf
